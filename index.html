@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Profile Card - Accessible & Responsive</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <article data-testid="test-profile-card">
+            <div class="card-content">
+                <div class="left-column">
+                    <figure>
+                        <img
+                            src="./serious-me.jpg"
+                            alt="Profile picture of Chimobi Ekwunife"
+                            data-testid="test-user-avatar"
+                        />
+                    </figure>
+                </div>
+
+                <div class="right-column">
+                    <header>
+                        <h1 data-testid="test-user-name">Chimobi Ekwunife</h1>
+                        <div class="time-display">
+                            <div>
+                                <strong>Current Time:</strong>
+                                <span id="formattedTime"></span>
+                            </div>
+                            <div
+                                style="
+                                    margin-top: 4px;
+                                    font-size: 11px;
+                                    opacity: 0.7;
+                                "
+                            >
+                                Timestamp:
+                                <span
+                                    data-testid="test-user-time"
+                                    id="currentTime"
+                                ></span
+                                >ms
+                            </div>
+                        </div>
+                    </header>
+
+                    <p data-testid="test-user-bio">
+                        Full-stack developer passionate about creating
+                        accessible and user-friendly web experiences. I love
+                        building products that make a difference in people's
+                        lives and contributing to open-source communities.
+                    </p>
+
+                    <nav
+                        data-testid="test-user-social-links"
+                        aria-label="Social media links"
+                    >
+                        <h2>Connect with me</h2>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://twitter.com/alexjohnson"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    data-testid="test-user-social-twitter"
+                                >
+                                    🐦 Twitter
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="https://github.com/alexjohnson"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    data-testid="test-user-social-github"
+                                >
+                                    💻 GitHub
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="https://linkedin.com/in/alexjohnson"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    data-testid="test-user-social-linkedin"
+                                >
+                                    💼 LinkedIn
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <div class="lists-container">
+                        <section>
+                            <h2>Hobbies</h2>
+                            <ul data-testid="test-user-hobbies">
+                                <li>Photography</li>
+                                <li>Hiking and outdoor adventures</li>
+                                <li>Playing guitar</li>
+                                <li>Reading sci-fi novels</li>
+                                <li>Cooking international cuisine</li>
+                            </ul>
+                        </section>
+
+                        <section>
+                            <h2>Dislikes</h2>
+                            <ul data-testid="test-user-dislikes">
+                                <li>Traffic jams</li>
+                                <li>Poorly documented code</li>
+                                <li>Cold coffee</li>
+                                <li>Spam emails</li>
+                                <li>Inconsistent UI design</li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <script>
+            // Update current time in milliseconds and formatted time
+            function updateTime() {
+                const now = new Date();
+                const timeElement = document.getElementById("currentTime");
+                const formattedTimeElement =
+                    document.getElementById("formattedTime");
+
+                // Set milliseconds timestamp
+                timeElement.textContent = now.getTime();
+
+                // Format readable date and time
+                const options = {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    timeZoneName: "short",
+                };
+                formattedTimeElement.textContent = now.toLocaleString(
+                    "en-US",
+                    options,
+                );
+            }
+
+            // Initialize and update time
+            updateTime();
+
+            // Update time every second to show it's dynamic
+            setInterval(updateTime, 1000);
+
+            // Add keyboard navigation enhancement
+            document.addEventListener("DOMContentLoaded", function () {
+                // Ensure all interactive elements are keyboard accessible
+                const links = document.querySelectorAll("a");
+                links.forEach((link) => {
+                    link.addEventListener("keydown", function (e) {
+                        if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            this.click();
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>

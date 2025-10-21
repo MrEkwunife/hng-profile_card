@@ -1,0 +1,226 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+        Cantarell, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+article[data-testid="test-profile-card"] {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.card-content {
+    padding: 30px;
+}
+
+/* Header Section */
+header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+figure {
+    margin-bottom: 20px;
+}
+
+img[data-testid="test-user-avatar"] {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #667eea;
+    display: block;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 28px;
+    color: #2d3748;
+    margin: 16px 0 8px;
+}
+
+.time-display {
+    font-size: 12px;
+    color: #718096;
+    font-family: "Courier New", monospace;
+    margin-top: 8px;
+}
+
+/* Bio Section */
+p[data-testid="test-user-bio"] {
+    color: #4a5568;
+    font-size: 16px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+/* Social Links */
+nav[data-testid="test-user-social-links"] {
+    margin-bottom: 30px;
+}
+
+nav h2 {
+    font-size: 18px;
+    color: #2d3748;
+    margin-bottom: 12px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: #667eea;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+nav a:hover {
+    background: #5a67d8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+nav a:focus {
+    outline: 3px solid #667eea;
+    outline-offset: 2px;
+}
+
+/* Lists Section */
+.lists-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+section {
+    background: #f7fafc;
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 4px solid #667eea;
+}
+
+section h2 {
+    font-size: 18px;
+    color: #2d3748;
+    margin-bottom: 12px;
+}
+
+section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+section li {
+    padding: 8px 0;
+    color: #4a5568;
+    position: relative;
+    padding-left: 24px;
+}
+
+section li::before {
+    content: "•";
+    position: absolute;
+    left: 8px;
+    color: #667eea;
+    font-weight: bold;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .card-content {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 30px;
+        padding: 40px;
+    }
+
+    .left-column {
+        text-align: center;
+    }
+
+    .right-column {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    header {
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    img[data-testid="test-user-avatar"] {
+        width: 150px;
+        height: 150px;
+    }
+
+    p[data-testid="test-user-bio"] {
+        text-align: left;
+    }
+
+    nav ul {
+        justify-content: flex-start;
+    }
+
+    .lists-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 1024px) {
+    article[data-testid="test-profile-card"] {
+        max-width: 900px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    p[data-testid="test-user-bio"] {
+        font-size: 18px;
+    }
+}
+
+/* Accessibility */
+*:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
