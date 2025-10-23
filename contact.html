@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Contact Us - Get in Touch</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    Oxygen, Ubuntu, Cantarell, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 90px 20px 20px;
+                line-height: 1.6;
+            }
+
+            /* Navigation Styles */
+            .main-nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+
+            .nav-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 70px;
+            }
+
+            .nav-brand {
+                font-size: 24px;
+                font-weight: 700;
+                color: #667eea;
+                letter-spacing: -0.5px;
+            }
+
+            .nav-links {
+                display: flex;
+                list-style: none;
+                gap: 40px;
+                align-items: center;
+            }
+
+            .nav-links a {
+                text-decoration: none;
+                color: #333;
+                font-weight: 500;
+                font-size: 16px;
+                transition: color 0.3s ease;
+                position: relative;
+                padding: 8px 0;
+            }
+
+            .nav-links a:hover {
+                color: #667eea;
+            }
+
+            .nav-links a.active {
+                color: #667eea;
+            }
+
+            .nav-links a.active::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: #667eea;
+                border-radius: 2px;
+            }
+
+            .nav-toggle {
+                display: none;
+                flex-direction: column;
+                gap: 5px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 8px;
+            }
+
+            .nav-toggle span {
+                width: 25px;
+                height: 3px;
+                background: #333;
+                border-radius: 3px;
+                transition: all 0.3s ease;
+            }
+
+            .container {
+                background: white;
+                border-radius: 16px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                max-width: 600px;
+                width: 100%;
+                padding: 40px;
+            }
+
+            h1 {
+                font-size: 32px;
+                color: #2d3748;
+                margin-bottom: 12px;
+                text-align: center;
+            }
+
+            .subtitle {
+                text-align: center;
+                color: #718096;
+                margin-bottom: 32px;
+                font-size: 16px;
+            }
+
+            .form-group {
+                margin-bottom: 24px;
+            }
+
+            label {
+                display: block;
+                font-weight: 600;
+                color: #2d3748;
+                margin-bottom: 8px;
+                font-size: 14px;
+            }
+
+            label .required {
+                color: #e53e3e;
+                margin-left: 2px;
+            }
+
+            input,
+            textarea {
+                width: 100%;
+                padding: 12px 16px;
+                border: 2px solid #e2e8f0;
+                border-radius: 8px;
+                font-size: 16px;
+                font-family: inherit;
+                transition: all 0.2s;
+                background: white;
+            }
+
+            input:focus,
+            textarea:focus {
+                outline: none;
+                border-color: #667eea;
+                box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            }
+
+            input.error,
+            textarea.error {
+                border-color: #e53e3e;
+            }
+
+            input.error:focus,
+            textarea.error:focus {
+                box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+            }
+
+            textarea {
+                min-height: 120px;
+                resize: vertical;
+            }
+
+            .error-message {
+                display: none;
+                color: #e53e3e;
+                font-size: 14px;
+                margin-top: 6px;
+                padding-left: 4px;
+            }
+
+            .error-message.visible {
+                display: block;
+            }
+
+            .success-message {
+                display: none;
+                background: #48bb78;
+                color: white;
+                padding: 16px;
+                border-radius: 8px;
+                margin-bottom: 24px;
+                text-align: center;
+                font-weight: 500;
+            }
+
+            .success-message.visible {
+                display: block;
+            }
+
+            button {
+                width: 100%;
+                padding: 14px 24px;
+                background: #667eea;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+
+            button:hover {
+                background: #5a67d8;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            }
+
+            button:focus {
+                outline: 3px solid #667eea;
+                outline-offset: 2px;
+            }
+
+            button:active {
+                transform: translateY(0);
+            }
+
+            button:disabled {
+                background: #cbd5e0;
+                cursor: not-allowed;
+                transform: none;
+            }
+
+            .char-count {
+                font-size: 12px;
+                color: #718096;
+                text-align: right;
+                margin-top: 4px;
+            }
+
+            @media (max-width: 768px) {
+            }
+
+            @media (max-width: 640px) {
+                .container {
+                    padding: 24px;
+                }
+
+                h1 {
+                    font-size: 24px;
+                }
+
+                .subtitle {
+                    font-size: 14px;
+                }
+
+                body {
+                    padding: 80px 15px 15px;
+                }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                * {
+                    animation-duration: 0.01ms !important;
+                    animation-iteration-count: 1 !important;
+                    transition-duration: 0.01ms !important;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="main-nav">
+            <div class="nav-container">
+                <div class="nav-brand">Chimobi</div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Profile</a></li>
+                    <li><a href="about.html">About Me</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+                <button class="nav-toggle" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+
+        <div class="container">
+            <h1>Contact Us</h1>
+            <p class="subtitle">
+                We'd love to hear from you. Send us a message and we'll respond
+                as soon as possible.
+            </p>
+
+            <div
+                data-testid="test-contact-success"
+                class="success-message"
+                role="alert"
+                aria-live="polite"
+            >
+                Thank you for your message! We'll get back to you soon.
+            </div>
+
+            <form id="contactForm" novalidate>
+                <div class="form-group">
+                    <label for="name">
+                        Full Name<span class="required" aria-label="required"
+                            >*</span
+                        >
+                    </label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        data-testid="test-contact-name"
+                        aria-required="true"
+                        aria-describedby="name-error"
+                        autocomplete="name"
+                    />
+                    <div
+                        id="name-error"
+                        class="error-message"
+                        data-testid="test-contact-error-name"
+                        role="alert"
+                    >
+                        Please enter your full name
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">
+                        Email Address<span
+                            class="required"
+                            aria-label="required"
+                            >*</span
+                        >
+                    </label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        data-testid="test-contact-email"
+                        aria-required="true"
+                        aria-describedby="email-error"
+                        autocomplete="email"
+                    />
+                    <div
+                        id="email-error"
+                        class="error-message"
+                        data-testid="test-contact-error-email"
+                        role="alert"
+                    >
+                        Please enter a valid email address
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">
+                        Subject<span class="required" aria-label="required"
+                            >*</span
+                        >
+                    </label>
+                    <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        data-testid="test-contact-subject"
+                        aria-required="true"
+                        aria-describedby="subject-error"
+                    />
+                    <div
+                        id="subject-error"
+                        class="error-message"
+                        data-testid="test-contact-error-subject"
+                        role="alert"
+                    >
+                        Please enter a subject
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">
+                        Message<span class="required" aria-label="required"
+                            >*</span
+                        >
+                    </label>
+                    <textarea
+                        id="message"
+                        name="message"
+                        data-testid="test-contact-message"
+                        aria-required="true"
+                        aria-describedby="message-error"
+                    ></textarea>
+                    <div class="char-count">
+                        <span id="charCount">0</span> / 10 minimum characters
+                    </div>
+                    <div
+                        id="message-error"
+                        class="error-message"
+                        data-testid="test-contact-error-message"
+                        role="alert"
+                    >
+                        Message must be at least 10 characters long
+                    </div>
+                </div>
+
+                <button type="submit" data-testid="test-contact-submit">
+                    Send Message
+                </button>
+            </form>
+        </div>
+
+        <script>
+            const form = document.getElementById("contactForm");
+            const nameInput = document.querySelector(
+                '[data-testid="test-contact-name"]',
+            );
+            const emailInput = document.querySelector(
+                '[data-testid="test-contact-email"]',
+            );
+            const subjectInput = document.querySelector(
+                '[data-testid="test-contact-subject"]',
+            );
+            const messageInput = document.querySelector(
+                '[data-testid="test-contact-message"]',
+            );
+            const successMessage = document.querySelector(
+                '[data-testid="test-contact-success"]',
+            );
+            const charCount = document.getElementById("charCount");
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            messageInput.addEventListener("input", function () {
+                charCount.textContent = this.value.length;
+            });
+
+            function validateName() {
+                const value = nameInput.value.trim();
+                const errorElement = document.querySelector(
+                    '[data-testid="test-contact-error-name"]',
+                );
+
+                if (value === "") {
+                    showError(nameInput, errorElement);
+                    return false;
+                } else {
+                    hideError(nameInput, errorElement);
+                    return true;
+                }
+            }
+
+            function validateEmail() {
+                const value = emailInput.value.trim();
+                const errorElement = document.querySelector(
+                    '[data-testid="test-contact-error-email"]',
+                );
+
+                if (value === "" || !emailRegex.test(value)) {
+                    showError(emailInput, errorElement);
+                    return false;
+                } else {
+                    hideError(emailInput, errorElement);
+                    return true;
+                }
+            }
+
+            function validateSubject() {
+                const value = subjectInput.value.trim();
+                const errorElement = document.querySelector(
+                    '[data-testid="test-contact-error-subject"]',
+                );
+
+                if (value === "") {
+                    showError(subjectInput, errorElement);
+                    return false;
+                } else {
+                    hideError(subjectInput, errorElement);
+                    return true;
+                }
+            }
+
+            function validateMessage() {
+                const value = messageInput.value.trim();
+                const errorElement = document.querySelector(
+                    '[data-testid="test-contact-error-message"]',
+                );
+
+                if (value.length < 10) {
+                    showError(messageInput, errorElement);
+                    return false;
+                } else {
+                    hideError(messageInput, errorElement);
+                    return true;
+                }
+            }
+
+            function showError(input, errorElement) {
+                input.classList.add("error");
+                errorElement.classList.add("visible");
+                input.setAttribute("aria-invalid", "true");
+            }
+
+            function hideError(input, errorElement) {
+                input.classList.remove("error");
+                errorElement.classList.remove("visible");
+                input.setAttribute("aria-invalid", "false");
+            }
+
+            nameInput.addEventListener("blur", validateName);
+            emailInput.addEventListener("blur", validateEmail);
+            subjectInput.addEventListener("blur", validateSubject);
+            messageInput.addEventListener("blur", validateMessage);
+
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                const isNameValid = validateName();
+                const isEmailValid = validateEmail();
+                const isSubjectValid = validateSubject();
+                const isMessageValid = validateMessage();
+
+                if (
+                    isNameValid &&
+                    isEmailValid &&
+                    isSubjectValid &&
+                    isMessageValid
+                ) {
+                    successMessage.classList.add("visible");
+                    form.reset();
+                    charCount.textContent = "0";
+
+                    successMessage.scrollIntoView({
+                        behavior: "smooth",
+                        block: "nearest",
+                    });
+
+                    setTimeout(() => {
+                        successMessage.classList.remove("visible");
+                    }, 5000);
+                } else {
+                    if (!isNameValid) nameInput.focus();
+                    else if (!isEmailValid) emailInput.focus();
+                    else if (!isSubjectValid) subjectInput.focus();
+                    else if (!isMessageValid) messageInput.focus();
+                }
+            });
+
+            form.addEventListener("input", function () {
+                if (successMessage.classList.contains("visible")) {
+                    successMessage.classList.remove("visible");
+                }
+            });
+        </script>
+    </body>
+</html>

@@ -4,9 +4,282 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Profile Card - Accessible & Responsive</title>
-        <link rel="stylesheet" href="style.css" />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    Oxygen, Ubuntu, Cantarell, sans-serif;
+                line-height: 1.6;
+                color: #333;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                padding-top: 80px;
+            }
+
+            /* Navigation Styles */
+            .main-nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+
+            .nav-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 70px;
+            }
+
+            .nav-brand {
+                font-size: 24px;
+                font-weight: 700;
+                color: #667eea;
+                letter-spacing: -0.5px;
+            }
+
+            .nav-links {
+                display: flex;
+                list-style: none;
+                gap: 40px;
+                align-items: center;
+            }
+
+            .nav-links a {
+                text-decoration: none;
+                color: #333;
+                font-weight: 500;
+                font-size: 16px;
+                transition: color 0.3s ease;
+                position: relative;
+                padding: 8px 0;
+            }
+
+            .nav-links a:hover {
+                color: #667eea;
+            }
+
+            .nav-links a.active {
+                color: #667eea;
+            }
+
+            .nav-links a.active::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background: #667eea;
+                border-radius: 2px;
+            }
+
+            .nav-toggle {
+                display: none;
+                flex-direction: column;
+                gap: 5px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 8px;
+            }
+
+            .nav-toggle span {
+                width: 25px;
+                height: 3px;
+                background: #333;
+                border-radius: 3px;
+                transition: all 0.3s ease;
+            }
+
+            /* Profile Card Styles */
+            article {
+                max-width: 900px;
+                margin: 40px auto;
+                background: white;
+                border-radius: 20px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                overflow: hidden;
+            }
+
+            .card-content {
+                display: grid;
+                grid-template-columns: 300px 1fr;
+                gap: 40px;
+            }
+
+            .left-column {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                padding: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .left-column figure {
+                width: 100%;
+                max-width: 220px;
+            }
+
+            .left-column img {
+                width: 100%;
+                height: auto;
+                border-radius: 15px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                border: 4px solid rgba(255, 255, 255, 0.3);
+            }
+
+            .right-column {
+                padding: 40px 40px 40px 0;
+            }
+
+            header h1 {
+                font-size: 32px;
+                color: #2d3748;
+                margin-bottom: 15px;
+            }
+
+            .time-display {
+                background: #f7fafc;
+                padding: 12px 16px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+                font-size: 14px;
+                color: #4a5568;
+            }
+
+            .time-display strong {
+                color: #2d3748;
+            }
+
+            .right-column > p {
+                font-size: 16px;
+                color: #4a5568;
+                margin-bottom: 30px;
+                line-height: 1.7;
+            }
+
+            .right-column nav h2,
+            .lists-container h2 {
+                font-size: 18px;
+                color: #2d3748;
+                margin-bottom: 12px;
+                font-weight: 600;
+            }
+
+            .right-column nav ul,
+            .lists-container ul {
+                list-style: none;
+                margin-bottom: 25px;
+            }
+
+            .right-column nav ul li {
+                margin-bottom: 8px;
+            }
+
+            .right-column nav a {
+                text-decoration: none;
+                color: #667eea;
+                font-size: 15px;
+                transition: color 0.3s ease;
+                display: inline-block;
+            }
+
+            .right-column nav a:hover {
+                color: #764ba2;
+            }
+
+            .lists-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+                margin-top: 30px;
+            }
+
+            .lists-container ul li {
+                padding: 8px 0;
+                color: #4a5568;
+                font-size: 14px;
+                border-bottom: 1px solid #e2e8f0;
+            }
+
+            .lists-container ul li:last-child {
+                border-bottom: none;
+            }
+
+            /* Mobile Responsive */
+            @media (max-width: 768px) {
+                body {
+                    padding-top: 70px;
+                }
+
+                .card-content {
+                    grid-template-columns: 1fr;
+                }
+
+                .left-column {
+                    padding: 40px;
+                }
+
+                .right-column {
+                    padding: 0 40px 40px 40px;
+                }
+
+                .lists-container {
+                    grid-template-columns: 1fr;
+                    gap: 20px;
+                }
+
+                header h1 {
+                    font-size: 26px;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .nav-container {
+                    padding: 0 15px;
+                }
+
+                .left-column,
+                .right-column {
+                    padding: 30px 20px;
+                }
+
+                article {
+                    margin: 20px 15px;
+                }
+            }
+        </style>
     </head>
     <body>
+        <nav class="main-nav">
+            <div class="nav-container">
+                <div class="nav-brand">Chimobi</div>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Profile</a></li>
+                    <li><a href="about.html">About Me</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <button class="nav-toggle" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
         <article data-testid="test-profile-card">
             <div class="card-content">
                 <div class="left-column">
@@ -118,17 +391,14 @@
         </article>
 
         <script>
-            // Update current time in milliseconds and formatted time
             function updateTime() {
                 const now = new Date();
                 const timeElement = document.getElementById("currentTime");
                 const formattedTimeElement =
                     document.getElementById("formattedTime");
 
-                // Set milliseconds timestamp
                 timeElement.textContent = now.getTime();
 
-                // Format readable date and time
                 const options = {
                     weekday: "long",
                     year: "numeric",
@@ -145,15 +415,10 @@
                 );
             }
 
-            // Initialize and update time
             updateTime();
-
-            // Update time every second to show it's dynamic
             setInterval(updateTime, 1000);
 
-            // Add keyboard navigation enhancement
             document.addEventListener("DOMContentLoaded", function () {
-                // Ensure all interactive elements are keyboard accessible
                 const links = document.querySelectorAll("a");
                 links.forEach((link) => {
                     link.addEventListener("keydown", function (e) {
